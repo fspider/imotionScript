@@ -1,0 +1,143 @@
+
+body {
+    margin-top:30px;
+    background-color: #B3B3B3 !important;
+}
+.container{
+    margin-top: 50px;
+    background-color: #fff;
+    
+}
+.container p 
+{
+    font-size: 1.25em
+}
+.col-xs-3{
+    width: 33.333% !important;
+}
+.stepwizard-row{
+    margin-top: 50px !important;
+    width: 101% !important;
+}
+/*  */
+.stepwizard-step{
+    background-color: #F4F4F4;
+}
+
+.stepwizard-step a{
+    width: 185px;
+    background-color: #F44336 ;
+    color: #fff;
+    border: none;
+    height: 44px;
+    padding-top: 13px;
+    transform: translate3d(-118px, 0px, 0px);
+    -webkit-transform: translate3d(-118px, 0px, 0px);
+    -moz-transform: translate3d(-118px, 0px, 0px);
+    -ms-transform: translate3d(-118px, 0px, 0px);
+    -o-transform: translate3d(-118px, 0px, 0px);
+}
+.panel{
+    border: none !important;
+}
+/*  */
+.stepwizard-step a:hover,.stepwizard-step a:active, #reset , #crop{
+    background-color: #f86056 !important;
+    color: #fff;
+}
+.stepwizard-row {
+    display: table-row;
+}
+.stepwizard {
+    display: table;
+    width: 100%;
+    position: relative;
+}
+.stepwizard .btn.disabled, .stepwizard .btn[disabled], .stepwizard fieldset[disabled] .btn {
+    opacity:1 !important;
+    color:black;
+    background-color: #F4F4F4;
+    font-weight: 500 ;
+}
+
+.stepwizard-step {
+    display: table-cell;
+    text-align: center;
+    position: relative;
+}
+.btn-circle {
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    padding: 6px 0;
+    font-size: 12px;
+    line-height: 1.428571429;
+    border-radius: 15px;
+}
+form {
+    min-height: 350px;
+}
+.form-group{
+    min-height: 400px;
+}
+form #image{
+    display: none;
+}
+form #image img {
+    max-width: 270px;
+    height: auto;
+}
+form .nextBtn, #download ,.clear{
+    width: 185px;
+    background-color: #F44336;
+    color: #fff;
+    border: none;
+    height: 44px;
+    padding-top: 5px;
+}
+form .nextBtn:hover, form .nextBtn:active , .finish{
+    background-color: #f86056 !important;
+    color: #fff !important;
+
+}
+form .instructions
+{
+    font-size: 12px;
+    color: #F44336;
+    font-weight: 600;
+    padding-bottom: 10px;
+}
+#cropzee-input{
+    text-align: center;
+}
+.light-modal-body{
+    background-color: #fff;
+    padding: 0 !important;
+}
+.image-previewer{
+    width: 350px;
+    height: 250px;
+    display: none;
+}
+
+.light-modal-footer{
+    background-color: #fff !important;
+}
+.light-modal-footer .light-modal-close-btn {
+    background-color: #F44336 !important;
+}
+@media only screen and  (min-width:320px) and (max-width:800px) {
+    .col-xs-3 {
+        margin-left: 105px !important;
+    }
+}
+
+.line{
+    position: absolute;
+    width: 350px;
+
+    height: 250px;
+    top: 248px;
+    display: none ;
+}
+

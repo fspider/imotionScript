@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+
+<html>
+   <head>
+      <style>
+         .red {
+            color:red;
+            display:inline-block;
+         }
+      </style>
+      <script type = "text/javascript">
+         var ws;
+         function WebSocketTest() {
+            
+            if ("WebSocket" in window) {
+               console.log("WebSocket is supported by your Browser!");
+               var domainPath = "47.254.235.152";               
+               var videoid = 5;
+               // Let us open a web socket
+               ws = new WebSocket("ws://" + domainPath + "/ws/" + videoid);
+               ws.onopen = function() {
+                  
+                  // Web Socket is connected, send data using send()
+                  // ws.send("Message to send");
+                  console.log("Connection is Opened...");
+               };
+				
+               ws.onmessage = function (evt) { 
+                  var received_msg = evt.data;
+                  // alert("Message is received...");
+                  console.log(received_msg)
+               };
+				
+               ws.onclose = function() { 
+                  
+                  // websocket is closed.
+                  console.log("Connection is closed..."); 
+               };
+            } else {
+              
+               // The browser doesn't support WebSocket
+               alert("WebSocket NOT supported by your Browser!");
+            }
+         }
+         function WebSocketClose() {
+            ws.close()
+         }
+      </script>
+		
+   </head>
+   
+   <body>
+      <div id = "sse" style="text-align: center; margin-top:50px;">
+         <h1> VideoFeed Client Test</h1>
+         <h3>Press <div class="red">F12</div> to open console window and check received data there!</h3>
+         <a href = "javascript:WebSocketTest()">Run WebSocket</a>
+         <a href="javascript:WebSocketClose()" style="padding-left:30px;">Stop WebSocket</a>
+      </div>
+      
+   </body>
+</html>

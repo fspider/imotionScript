@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Feed</title>
+    <link rel="stylesheet" href="./css/style1.css">
+    <link href="./css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+
+    <link rel="stylesheet" type="text/css" href="http://odyniec.net/projects/imgareaselect/css/imgareaselect-default.css" />
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+    <script src='http://odyniec.net/projects/imgareaselect/jquery.imgareaselect.pack.js'></script>
+
+</head>
+<body>
+
+    <div class="container" id="app">
+        <div class="head text-center">
+            <h1>Config Generator</h1>
+            <p> This information will let us know more about what you want. </p>
+        </div>
+
+        <div class="stepwizard">
+            <div class="row steprowdiv">
+                <div class="col-xs-2 stepcoldiv"> 
+                    <button class="stepbutton" type="button" id="btn_step1" onclick="stepFunc1()">Step 1</button>
+                </div>
+                <div class="col-xs-2 stepcoldiv"> 
+                    <button class="stepbutton" type="button" id="btn_step2" onclick="stepFunc2()">Step 2</button>
+                </div>
+                <div class="col-xs-2 stepcoldiv"> 
+                    <button class="stepbutton" type="button" id="btn_step3" onclick="stepFunc3()">Step 3</button>
+                </div>
+                <div class="col-xs-2 stepcoldiv"> 
+                    <button class="stepbutton" type="button" id="btn_step4" onclick="stepFunc4()">Step 4</button>
+                </div>
+                <div class="col-xs-2 stepcoldiv"> 
+                    <button class="stepbutton" type="button" id="btn_step5" onclick="stepFunc5()">Step 5</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="imagediv" id="show1">
+            <div class="text-center">
+                <p id="addphoto">Add New Photo</p>
+                <p id="roi">ROI</p>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-8 showimgdiv">
+                    <input id="file-input" type="file" accept="image/*" style="display: none">
+                    <img id="selectedImg" />
+                </div>
+                <div class="col-xs-4 showexplaindiv">
+                    <div class="row" style="margin: 5px">
+                        <label>Crop_x:</label>    
+                        <label id="cropx" style="width: 50px"></label>
+                    </div>
+                    <div class="row" style="margin: 5px">
+                        <label>Crop_y:</label>    
+                        <label id="cropy" style="width: 50px"></label>
+                    </div>
+                    <div class="row" style="margin: 5px">
+                        <label>Crop_w:</label>    
+                        <label id="cropw" style="width: 50px"></label>
+                    </div>
+                    <div class="row" style="margin: 5px">
+                        <label>Crop_h:</label>    
+                        <label id="croph" style="width: 50px"></label>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+
+        <div class="imagediv" id="show2">
+            <div class="text-center">
+                <p>Line</p>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-8 showimgdiv">
+                    <canvas id="myCanvas" width="750" height="500" style="width: 100%; height: 100%"></canvas>
+                    <div class="row">
+                        <button class="lineBtn" type="button" onclick="lineClear()" id="lineClearBtn">Refresh</button>
+                    </div>
+                </div>
+                <div class="col-xs-4 showexplaindiv">
+                    <div class="row" style="margin: 5px">
+                        <label>Start_x:</label>    
+                        <label id="startx" style="width: 50px"></label>
+                    </div>
+                    <div class="row" style="margin: 5px">
+                        <label>Start_y:</label>    
+                        <label id="starty" style="width: 50px"></label>
+                    </div>
+                    <div class="row" style="margin: 5px">
+                        <label>End_w:</label>    
+                        <label id="endw" style="width: 50px"></label>
+                    </div>
+                    <div class="row" style="margin: 5px">
+                        <label>End_h:</label>    
+                        <label id="endh" style="width: 50px"></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="imagediv" id="show3">
+            <div class="text-center">
+                <p>Bottles</p>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-8 showimgdiv">
+                    <canvas id="myCanvas1" width="750" height="500" style="width: 100%; height: 100%"></canvas>
+                    <div class="row">
+                        <button class="lineBtn" type="button" onclick="rectClear()" id="rectClearBtn">Clear</button>
+                        <button class="lineBtn" type="button" onclick="rectRemove()" id="rectRemoveBtn">Remove</button>
+                    </div>
+                </div>
+
+                <div class="col-xs-4 showexplaindiv">
+                   <div class="row" id="rectexplaindiv" style="padding: 30px"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="imagediv" id="show4">
+            <div class="text-center">
+                <p>Camera Config</p>
+            </div>
+            <div class="row" style="padding-left: 50px; padding-bottom: 10px; padding-top: 30px">
+                <label>VidoId</label>
+            </div>
+            <div class="row" style="padding-left: 50px; padding-bottom: 20px">
+                <input type="text" id="videoid" placeholder="Please Enter Id" style="width: 94%"></input>
+            </div>
+            <div class="row" style="padding-left: 50px; padding-bottom: 10px">
+                <label>VideoURL</label>
+            </div>
+            <div class="row" style="padding-left: 50px; padding-bottom: 20px">
+                <input type="text" id="videourl" placeholder="Please Enter URL" style="width: 94%"></input>
+            </div>
+            <div class="row" style="padding-left: 50px; padding-bottom: 10px">
+                <label>VideoType</label>
+            </div>
+            <div class="row" style="padding-left: 50px; padding-bottom: 30px">
+                <select id="videotype" value="default"  style="width: 94%">
+                    <option value="default">Select Options</option>
+                    <option value="1">Static Video</option>
+                    <option value="2">LiveStream</option>
+                    <option value="3">Youtube Video</option>
+                </select>
+            </div>
+            <div class="row" style="padding-left: 50px; padding-bottom: 20px">
+                <button id="resetBtn" style="color: white; background-color:red; width: 100px" onclick="resetFunc()">Reset</button>
+            </div>
+        </div>
+
+        <div class="imagediv" id="show5">
+            <div class="row" style="text-align: center">
+                <button id="gettBtn" style="color: white; background-color:green; margin-top: 250px; border-radius: 15px; width: 200px; height: 50px;" onclick="getFunc()">Get File</button>
+            </div>
+        </div>
+
+        <div class="footdiv">
+            <button class="choose" type="button" onclick="choseFile()" id="chooseBtn">Choose File</button>
+            <button class="next" type="button" onclick="nextFunc()" id="nextBtn">Next</button>
+            <button class="finish" type="button" onclick="finishFunc()" id="finishBtn">Finish</button>
+        </div>
+        <div id="show-data" style="display: none">
+           
+        </div>
+    </div>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> -->
+    <script>
+
+        var imgwidth = 0;
+        var imgheight = 0;
+        var canvasoldx = 0;
+        var canvasoldy = 0;
+        var canvasoldw = 0;
+        var canvasoldh = 0;
+        var canvasoldImg = document.getElementById("selectedImg");
+
+        var canvas = document.getElementById('myCanvas');
+        var ctx = canvas.getContext('2d');
+        var canvasx = $(canvas).offset().left;
+        var canvasy = $(canvas).offset().top;
+        var last_mousex = last_mousey = 0;
+        var mousex = mousey = 0;
+        var mousedown = false;
+        var points = [];
+        // var offx = canvas.offsetLeft + document.getElementById('app').offsetLeft + canvas.offsetLeft;
+        // var offx = 46;
+        // var offy = canvas.offsetTop + document.getElementById('app').offsetTop;
+        var offy = 249;
+        var rects = "";
+
+        var canvas1 = document.getElementById('myCanvas1');
+        var ctx1 = canvas1.getContext('2d');
+        var canvas1x = $(canvas1).offset().left;
+        var canvas1y = $(canvas1).offset().top;
+        var last_mouse1x = last_mouse1y = 0;
+        var mouse1x = mouse1y = 0;
+        var mousedown1 = false;
+        var points1 = [];
+        var mx = 0;
+        var my = 0;
+
+        document.getElementById("btn_step1").style.backgroundColor = "red";
+        document.getElementById("btn_step1").style.color = "white";
+        document.getElementById("show1").style.display = "block";
+
+        function choseFile(){
+            document.getElementById('file-input').click();
+        }
+
+        function nextFunc(){
+            if(document.getElementById("show1").style.display == "block"){
+                document.getElementById("show1").style.display = "none";
+                document.getElementById("show2").style.display = "block";
+                $('#selectedImg').imgAreaSelect({disable:true,hide:true});
+                document.getElementById("chooseBtn").style.display = "none";
+                document.getElementById("finishBtn").style.display = "none";
+                document.getElementById("btn_step2").style.backgroundColor = "red";
+                document.getElementById("btn_step2").style.color = "white";
+                ctx.clearRect(0,0,canvas.width,canvas.height);
+                ctx.drawImage(canvasoldImg,0,0,canvasoldImg.width,canvasoldImg.height,0,0,canvas.width,canvas.height);
+            }
+            else if(document.getElementById("show2").style.display == "block"){
+                document.getElementById("show2").style.display = "none";
+                document.getElementById("show3").style.display = "block";
+                $('#selectedImg').imgAreaSelect({disable:true,hide:true});
+                document.getElementById("chooseBtn").style.display = "none";
+                document.getElementById("finishBtn").style.display = "none";
+                document.getElementById("btn_step3").style.backgroundColor = "red";
+                document.getElementById("btn_step3").style.color = "white";
+                ctx1.clearRect(0,0,canvas1.width,canvas1.height);
+                ctx1.drawImage(canvasoldImg,0,0,canvasoldImg.width,canvasoldImg.height,0,0,canvas1.width,canvas1.height);
+            }
+            else if(document.getElementById("show3").style.display == "block"){
+                document.getElementById("show3").style.display = "none";
+                document.getElementById("show4").style.display = "block";
+                $('#selectedImg').imgAreaSelect({disable:true,hide:true});
+                document.getElementById("chooseBtn").style.display = "none";
+                document.getElementById("finishBtn").style.display = "none";
+                document.getElementById("btn_step4").style.backgroundColor = "red";
+                document.getElementById("btn_step4").style.color = "white";
+            }
+            else if(document.getElementById("show4").style.display == "block"){
+                document.getElementById("show4").style.display = "none";
+                document.getElementById("show5").style.display = "block";
+                $('#selectedImg').imgAreaSelect({disable:true,hide:true});
+                document.getElementById("chooseBtn").style.display = "none";
+                document.getElementById("nextBtn").style.display = "none";
+                document.getElementById("finishBtn").style.display = "block";
+                document.getElementById("btn_step5").style.backgroundColor = "red";
+                document.getElementById("btn_step5").style.color = "white";
+            }
+        }
+
+        function stepFunc1(){
+            if(document.getElementById("btn_step1").style.backgroundColor == "red"){
+                document.getElementById("show1").style.display = "block";
+                document.getElementById("show2").style.display = "none";
+                document.getElementById("show3").style.display = "none";
+                document.getElementById("show4").style.display = "none";
+                document.getElementById("show5").style.display = "none";
+                document.getElementById("chooseBtn").style.display = "block";
+                $('#selectedImg').imgAreaSelect({disable:false,hide:false});
+                document.getElementById("finishBtn").style.display = "none";
+            }
+        }
+
+        function stepFunc2(){
+            if(document.getElementById("btn_step2").style.backgroundColor == "red"){
+                document.getElementById("show1").style.display = "none";
+                document.getElementById("show2").style.display = "block";
+                document.getElementById("show3").style.display = "none";
+                document.getElementById("show4").style.display = "none";
+                document.getElementById("show5").style.display = "none";
+                document.getElementById("chooseBtn").style.display = "none";
+                document.getElementById("finishBtn").style.display = "none";
+            }
+        }
+
+        function stepFunc3(){
+            if(document.getElementById("btn_step3").style.backgroundColor == "red"){
+                document.getElementById("show1").style.display = "none";
+                document.getElementById("show2").style.display = "none";
+                document.getElementById("show3").style.display = "block";
+                document.getElementById("show4").style.display = "none";
+                document.getElementById("show5").style.display = "none";
+                document.getElementById("chooseBtn").style.display = "none";
+                document.getElementById("finishBtn").style.display = "none";
+            }
+        }
+
+        function stepFunc4(){
+            if(document.getElementById("btn_step4").style.backgroundColor == "red"){
+                document.getElementById("show1").style.display = "none";
+                document.getElementById("show2").style.display = "none";
+                document.getElementById("show3").style.display = "none";
+                document.getElementById("show4").style.display = "block";
+                document.getElementById("show5").style.display = "none";
+                document.getElementById("chooseBtn").style.display = "none";
+                document.getElementById("finishBtn").style.display = "none";
+            }
+        }
+
+        function stepFunc5(){
+            if(document.getElementById("btn_step5").style.backgroundColor == "red"){
+                document.getElementById("show1").style.display = "none";
+                document.getElementById("show2").style.display = "none";
+                document.getElementById("show3").style.display = "none";
+                document.getElementById("show4").style.display = "none";
+                document.getElementById("show5").style.display = "block";
+                document.getElementById("chooseBtn").style.display = "none";
+                document.getElementById("nextBtn").style.display = "none";
+                document.getElementById("finishBtn").style.display = "block";
+            }
+        }
+
+        function lineClear(){
+            undoall();
+        }
+
+        function rectClear(){
+            undoall1();
+        }
+
+        function rectRemove(){
+            undo1();
+        }
+
+        $(function(){
+            $("#file-input").on("change", function() {
+                $("#selectedImg").attr("src", URL.createObjectURL(this.files[0]));
+                document.getElementById("addphoto").style.display = "none"
+                document.getElementById("roi").style.display = "block"
+            })
+        })
+
+        $('#selectedImg').imgAreaSelect({
+            handles: true,
+            onSelectEnd: function (img, selection) {
+                if (!selection.width || !selection.height) {
+                    return;
+                }
+                document.getElementById("cropx").innerHTML = (selection.x1/document.getElementById("selectedImg").clientWidth).toFixed(2);
+                document.getElementById("cropy").innerHTML = (selection.y1/document.getElementById("selectedImg").clientHeight).toFixed(2);
+                document.getElementById("cropw").innerHTML = (selection.width/document.getElementById("selectedImg").clientWidth).toFixed(2);
+                document.getElementById("croph").innerHTML = (selection.height/document.getElementById("selectedImg").clientHeight).toFixed(2);
+
+                imgwidth = document.getElementById("selectedImg").clientWidth;
+                imgheight = document.getElementById("selectedImg").clientHeight;
+                var canvas = document.getElementById("myCanvas");
+                var ctx = canvas.getContext("2d");
+                var canvas1 = document.getElementById("myCanvas1");
+                var ctx1 = canvas1.getContext("2d");
+                canvasoldx = selection.x1;
+                canvasoldy = selection.y1;
+                canvasoldw = selection.width;
+                canvasoldh = selection.height;
+                ctx.clearRect(0,0,750,500);
+                // ctx.drawImage(img,selection.x1,selection.y1,selection.width,selection.height,0,0,selection.width,selection.height);
+                ctx.drawImage(canvasoldImg,0,0,canvasoldImg.width,canvasoldImg.height,0,0,750,500);
+                ctx1.clearRect(0,0,750,500);
+                ctx1.drawImage(canvasoldImg,0,0,canvasoldImg.width,canvasoldImg.height,0,0,750,500);
+            }
+        });
+
+        $(canvas).on('mousedown', function(e) {
+            var offx = canvas.offsetLeft + document.getElementById('app').offsetLeft;
+            last_mousex = parseInt(e.clientX-canvasx-offx);
+            last_mousey = parseInt(e.clientY-canvasy-offy);
+            mousedown = true;
+            console.log("clientx", e.clientX);
+            console.log("canvasx", canvasx);
+            console.log("canvas off", canvas.offsetLeft);
+            console.log("app off", document.getElementById('app').offsetLeft);
+            console.log("parent off", canvas.offsetParent);
+        });
+
+        $(canvas1).on('mousedown', function(e) {
+            var offx = canvas1.offsetLeft + document.getElementById('app').offsetLeft;
+            last_mouse1x = parseInt(e.clientX-canvas1x-offx);
+            last_mouse1y = parseInt(e.clientY-canvas1y-offy);
+            mousedown1 = true;
+        });
+        
+        $(canvas).on('mouseup', function(e) {
+            mousedown = false;
+            var offx = canvas.offsetLeft + document.getElementById('app').offsetLeft;
+            mousex = parseInt(e.clientX-canvasx-offx);
+            mousey = parseInt(e.clientY-canvasy-offy);
+            mx = mousex;
+            my = mousey;
+            document.getElementById("startx").innerHTML = (last_mousex/750).toFixed(2);
+            document.getElementById("starty").innerHTML = (last_mousey/500).toFixed(2);
+            document.getElementById("endw").innerHTML = (Math.abs(mousex-last_mousex)/750).toFixed(2);
+            document.getElementById("endh").innerHTML = (Math.abs(mousey-last_mousey)/500).toFixed(2);
+        });
+
+        $(canvas1).on('mouseup', function(e) {
+            mousedown1 = false;
+            var offx = canvas1.offsetLeft + document.getElementById('app').offsetLeft;
+            mouse1x = parseInt(e.clientX-canvas1x-offx);
+            mouse1y = parseInt(e.clientY-canvas1y-offy);
+            points1.push({x1:last_mouse1x,y1:last_mouse1y,x2:mouse1x,y2:mouse1y});
+            // redrawall1();
+        });
+
+        function undoall(){
+            ctx.clearRect(0,0,canvas.width,canvas.height);
+            ctx.drawImage(canvasoldImg,0,0,canvasoldImg.width,canvasoldImg.height,0,0,canvas.width,canvas.height);
+            document.getElementById("startx").innerHTML = "";
+            document.getElementById("starty").innerHTML = "";
+            document.getElementById("endw").innerHTML = "";
+            document.getElementById("endh").innerHTML = "";
+        }
+
+        function redrawall1(){
+            ctx1.clearRect(0,0,canvas1.width,canvas1.height);
+            ctx1.drawImage(canvasoldImg,0,0,canvasoldImg.width,canvasoldImg.height,0,0,canvas1.width,canvas1.height);
+            if(points1.length==0){return;}
+            var insertLabel = [];
+            var Labels = "";
+            rects = "";
+            for(var i=0;i<points1.length;i++){
+                var pt=points1[i];
+                var last_mouse11x=pt.x1;
+                var last_mouse11y=pt.y1;
+                var mouse11x = pt.x2;
+                var mouse11y = pt.y2;
+                ctx1.beginPath();
+                var width = Math.abs(mouse11x-last_mouse11x);
+                var height = Math.abs(mouse11y-last_mouse11y);
+                ctx1.rect(last_mouse11x,last_mouse11y,width,height);
+                ctx1.strokeStyle = 'blue';
+                ctx1.lineWidth = 2;
+                ctx1.stroke();
+                ctx1.closePath();
+
+                insertLabel[i] = '<div style="width: 50px">'+'Rect'+(i+1)+'('+(pt.x1/750).toFixed(2)+',&nbsp'+(pt.y1/500).toFixed(2)+',&nbsp'+(width/750).toFixed(2)+',&nbsp'+(height/500).toFixed(2)+')'+'</div>';
+                Labels = Labels + insertLabel[i];
+                rects = rects + (pt.x1/750).toFixed(2) + ',' + (pt.y1/500).toFixed(2) + ',' + (width/750).toFixed(2) + ',' + (height/500).toFixed(2) + ',';
+                // document.getElementById("starty").innerHTML = pt.y1/500;
+                // document.getElementById("endw").innerHTML = (pt.x2-pt.x1)/620;
+                // document.getElementById("endh").innerHTML = (pt.y2-pt.y1)/500;
+            }
+            document.getElementById("rectexplaindiv").innerHTML = Labels;
+            // rects = Labels;
+        }
+
+        function undo1(){
+            points1.pop();
+            redrawall1();
+        }
+
+        function undoall1(){
+            points1 = [];
+            ctx1.clearRect(0,0,canvas1.width,canvas1.height);
+            ctx1.drawImage(canvasoldImg,0,0,canvasoldImg.width,canvasoldImg.height,0,0,canvas1.width,canvas1.height);
+            // document.getElementById("startx").innerHTML = "";
+            document.getElementById("rectexplaindiv").innerHTML = "";
+        }
+
+        $(canvas).on('mousemove', function(e) {
+            var offx = canvas.offsetLeft + document.getElementById('app').offsetLeft;
+            mousex = parseInt(e.clientX-canvasx-offx);
+            mousey = parseInt(e.clientY-canvasy-offy);
+            // console.log(e.clientX);
+            // console.log(canvasx);
+            // console.log(offx);
+
+            if(mousedown) {
+                ctx.clearRect(0,0,canvas.width,canvas.height);
+                ctx.drawImage(canvasoldImg,0,0,canvasoldImg.width,canvasoldImg.height,0,0,canvas.width,canvas.height);
+                ctx.beginPath();
+                ctx.moveTo(last_mousex,last_mousey);
+                ctx.lineTo(mousex,mousey);
+                ctx.strokeStyle = 'red';
+                ctx.lineWidth = 2;
+                ctx.lineJoin = ctx.lineCap = 'round';
+                ctx.stroke();
+            }
+        });
+        
+        $(canvas1).on('mousemove', function(e) {    
+            redrawall1();
+            var offx = canvas1.offsetLeft + document.getElementById('app').offsetLeft;
+            mouse1x = parseInt(e.clientX-canvas1x-offx);
+            mouse1y = parseInt(e.clientY-canvas1y-offy);
+            if(mousedown1) {
+                ctx1.clearRect(0,0,canvas1.width,canvas1.height); //clear canvas
+                ctx1.drawImage(canvasoldImg,0,0,canvasoldImg.width,canvasoldImg.height,0,0,canvas1.width,canvas1.height);
+                ctx1.beginPath();
+                var width = mouse1x-last_mouse1x;
+                var height = mouse1y-last_mouse1y;
+                ctx1.rect(last_mouse1x,last_mouse1y,width,height);
+                ctx1.strokeStyle = 'blue';
+                ctx1.lineWidth = 2;
+                ctx1.stroke();
+            }
+        });
+
+        function resetFunc(){
+            document.getElementById("videoid").value = "";
+            document.getElementById("videourl").value = "";
+            document.getElementById("videotype").value = "default";
+        }
+
+        function getFunc(){
+            var vid = 'VideoId&nbsp=&nbsp' + document.getElementById("videoid").value + '\n';
+            var vurl = 'VideoURL&nbsp=&nbsp' + document.getElementById("videourl").value + '\n';
+            var vtype = 'VideoType&nbsp=&nbsp' + document.getElementById("videotype").value + '\n';
+            var cropinfo = 'CropInfo&nbsp=&nbsp' + (canvasoldx/imgwidth).toFixed(2) + ',' + (canvasoldy/imgheight).toFixed(2) + ',' + (canvasoldw/imgwidth).toFixed(2) + ',' + (canvasoldh/imgheight).toFixed(2) + '\n';
+            var line = 'Line&nbsp=&nbsp' + (last_mousex/750).toFixed(2) + ',' + (last_mousey/500).toFixed(2) + ',' + (Math.abs(mx-last_mousex)/750).toFixed(2) + ',' + (Math.abs(my-last_mousey)/500).toFixed(2) + '\n';
+            // vrects = Labels;
+            // console.log(vid);
+            // console.log(cropinfo);
+            document.getElementById("show-data").innerHTML = vid + vurl + vtype + cropinfo + line + 'Bottles&nbsp=&nbsp' + rects;
+
+            var a = document.body.appendChild(
+                document.createElement("a")
+            );
+            var textToWrite = document.getElementById("show-data").innerText;
+            a.download = "world.txt"; 
+            textToWrite = textToWrite.replace(/\n/g, "%0D%0A"); 
+            a.href = "data:text/plain," + textToWrite;
+            a.click();
+        }
+
+    </script>    
+        
+</body>
+</html>
