@@ -160,7 +160,10 @@
 
         <div class="imagediv" id="show5">
             <div class="row" style="text-align: center">
-                <button id="gettBtn" style="color: white; background-color:green; margin-top: 250px; border-radius: 15px; width: 200px; height: 50px;" onclick="getFunc()">Get File</button>
+                <p style="margin-top:50px;">Download file and confirm if filename is "input.in"</p>
+            </div>
+            <div class="row" style="text-align: center">
+                <button id="gettBtn" style="color: white; background-color:green; margin-top: 200px; border-radius: 15px; width: 200px; height: 50px;" onclick="getFunc()">Get File</button>
             </div>
         </div>
 
@@ -514,27 +517,28 @@
         }
 
         function getFunc(){
+            var header = "[INPUT]\n";
             var vid = 'VideoId&nbsp=&nbsp' + document.getElementById("videoid").value + '\n';
             var vurl = 'VideoURL&nbsp=&nbsp' + document.getElementById("videourl").value + '\n';
             var vtype = 'VideoType&nbsp=&nbsp' + document.getElementById("videotype").value + '\n';
-            var cropinfo = 'CropInfo&nbsp=&nbsp' + (canvasoldx/imgwidth).toFixed(2) + ',' + (canvasoldy/imgheight).toFixed(2) + ',' + (canvasoldw/imgwidth).toFixed(2) + ',' + (canvasoldh/imgheight).toFixed(2) + '\n';
-            var line = 'Line&nbsp=&nbsp' + (last_mousex/750).toFixed(2) + ',' + (last_mousey/500).toFixed(2) + ',' + (Math.abs(mx-last_mousex)/750).toFixed(2) + ',' + (Math.abs(my-last_mousey)/500).toFixed(2) + '\n';
+            var cropinfo = 'cropInfo&nbsp=&nbsp' + (canvasoldx/imgwidth).toFixed(2) + ',' + (canvasoldy/imgheight).toFixed(2) + ',' + (canvasoldw/imgwidth).toFixed(2) + ',' + (canvasoldh/imgheight).toFixed(2) + '\n';
+            var line = 'line&nbsp=&nbsp' + (last_mousex/750).toFixed(2) + ',' + (last_mousey/500).toFixed(2) + ',' + (Math.abs(mx-last_mousex)/750).toFixed(2) + ',' + (Math.abs(my-last_mousey)/500).toFixed(2) + '\n';
+            var bottles = 'bottles&nbsp=&nbsp' + rects;
             // vrects = Labels;
             // console.log(vid);
             // console.log(cropinfo);
-            document.getElementById("show-data").innerHTML = vid + vurl + vtype + cropinfo + line + 'Bottles&nbsp=&nbsp' + rects;
+            document.getElementById("show-data").innerHTML = header + vid + vurl + vtype + cropinfo + line + bottles;
 
             var a = document.body.appendChild(
                 document.createElement("a")
             );
             var textToWrite = document.getElementById("show-data").innerText;
-            a.download = "world.txt"; 
+            a.download = "input.in"; 
             textToWrite = textToWrite.replace(/\n/g, "%0D%0A"); 
             a.href = "data:text/plain," + textToWrite;
             a.click();
         }
-
-    </script>    
+    </script>
         
 </body>
 </html>
